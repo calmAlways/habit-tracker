@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum HabitType {
+  CHECK
+  QUANTITY
+}
+
+enum StreakMode {
+  DAILY
+  WEEKDAYS
+  WEEKENDS
+  CUSTOM
+}
+
+model Habit {
+  id         String     @id @default(cuid())
+  name       String
+  type       HabitType
+  unit       String?
+  streakMode StreakMode @default(DAILY)
+  customDays Int[]      @default([])
+  sortOrder  Int        @default(0)
+  archivedAt DateTime?
+  createdAt  DateTime   @default(now())
+  logs       HabitLog[]
+
+  @@index([archivedAt, sortOrder])
+}
+
+model HabitLog {
+  id         String   @id @default(cuid())
+  habitId    String
+  habit      Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  logDate    String
+  occurredAt DateTime
+  value      Int?
+  note       String?
+  checkKey   String?  @unique
+  createdAt  DateTime @default(now())
+
+  @@index([habitId, logDate])
+  @@index([logDate])
+}
