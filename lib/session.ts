@@ -35,7 +35,7 @@ export async function createSession(): Promise<string> {
     exp: nowSeconds + SESSION_DAYS * 24 * 60 * 60,
     jti: crypto.randomUUID(),
   };
-  const payloadB64 = b64url(new TextEncoder().encode(JSON.stringify(payload)));
+  const payloadB64 = b64url(new TextEncoder().encode(JSON.stringify(payload)).buffer as ArrayBuffer);
   const key = await getHmacKey(AUTH_SECRET());
   const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(payloadB64).buffer as ArrayBuffer);
   return `${payloadB64}.${b64url(sig)}`;
