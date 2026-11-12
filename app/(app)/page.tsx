@@ -3,6 +3,8 @@ import { todayShanghai } from "@/lib/date";
 import { HabitRow } from "@/components/HabitRow";
 import { Card, CardContent } from "@/components/ui/card";
 
+export const dynamic = "force-dynamic";
+
 function isCounted(date: string, mode: string, customDays: number[]): boolean {
   const wd = new Date(`${date}T00:00:00Z`).getUTCDay();
   switch (mode) {
