@@ -1,9 +1,13 @@
 import type { NextRequest } from "next/server";
 
+interface RequestWithIP extends NextRequest {
+  ip?: string;
+}
+
 export function getClientIP(request: NextRequest): string {
   const forwarded = request.headers.get("x-forwarded-for");
   if (forwarded) {
     return forwarded.split(",")[0].trim();
   }
-  return (request as any).ip ?? "unknown";
+  return (request as unknown as RequestWithIP).ip ?? "unknown";
 }
