@@ -64,7 +64,7 @@ export default async function TodayPage() {
         {habits
           .filter((h) => isCounted(today, h.streakMode, h.customDays) || h.type === "QUANTITY")
           .map((h) => (
-            <HabitRow key={h.id} habit={h} today={today} logs={grouped.get(h.id) ?? []} />
+            <HabitRow key={h.id} habit={h} logs={grouped.get(h.id) ?? []} />
           ))}
       </div>
 
@@ -74,7 +74,7 @@ export default async function TodayPage() {
             <p className="text-sm font-medium text-muted-foreground mb-2">今天不用记</p>
             <div className="space-y-2">
               {offDayHabits.map((h) => (
-                <HabitRow key={h.id} habit={h} today={today} logs={grouped.get(h.id) ?? []} />
+                <HabitRow key={h.id} habit={h} logs={grouped.get(h.id) ?? []} />
               ))}
             </div>
           </CardContent>

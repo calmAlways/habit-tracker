@@ -5,13 +5,40 @@ import { StatCard } from "@/components/StatCard";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Habit } from "@prisma/client";
 
 const WINDOWS = ["7", "30", "90", "365", "all"];
+
+type CheckStats = {
+  streak: number;
+  lastOccurredAt: string | null;
+  count: number;
+};
+
+type QuantityStats = {
+  totalValue: number;
+  count: number;
+  unit: string;
+  trend: Array<{ logDate: string; value: number }>;
+};
+
+type StatsItem = {
+  habit: Habit;
+  check: CheckStats | null;
+  quantity: QuantityStats | null;
+};
+
+type StatsData = {
+  window: string;
+  startDate: string | null;
+  endDate: string;
+  items: StatsItem[];
+};
 
 export default function StatsPage() {
   const [window, setWindow] = useState("30");
   const [includeArchived, setIncludeArchived] = useState(false);
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<StatsData | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -51,7 +78,7 @@ export default function StatsPage() {
 
       {data?.items && (
         <div className="space-y-3">
-          {data.items.map((item: any) => (
+          {data.items.map((item: StatsItem) => (
             <StatCard key={item.habit.id} habit={item.habit} check={item.check} quantity={item.quantity} />
           ))}
         </div>

@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckButton } from "./CheckButton";
 import { QuantityDialog } from "./QuantityDialog";
@@ -11,11 +10,10 @@ import { formatDurationMinutes } from "@/lib/date";
 
 interface HabitRowProps {
   habit: Habit;
-  today: string;
   logs: HabitLog[];
 }
 
-export function HabitRow({ habit, today, logs }: HabitRowProps) {
+export function HabitRow({ habit, logs }: HabitRowProps) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const checkLog = habit.type === "CHECK" ? logs.find((l) => l.value === null) : undefined;

@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Habit } from "@prisma/client";
+import { Habit, StreakMode } from "@prisma/client";
 import { Download, ArchiveRestore, Archive, ArrowUp, ArrowDown } from "lucide-react";
 
 const WEEKDAYS = [
@@ -138,7 +138,7 @@ export default function SettingsPage() {
                 <div className="space-y-2">
                   <Select
                     value={h.streakMode}
-                    onValueChange={(v) => updateHabit(h.id, { streakMode: v as any })}
+                    onValueChange={(v) => updateHabit(h.id, { streakMode: v as StreakMode })}
                     disabled={loading || !!h.archivedAt}
                   >
                     <SelectTrigger>
@@ -201,7 +201,7 @@ export default function SettingsPage() {
               required
               disabled={loading}
             />
-            <Select value={newType} onValueChange={(v) => setNewType(v as any)} disabled={loading}>
+            <Select value={newType} onValueChange={(v) => setNewType(v as "CHECK" | "QUANTITY")} disabled={loading}>
               <SelectTrigger className="w-32">
                 <SelectValue />
               </SelectTrigger>

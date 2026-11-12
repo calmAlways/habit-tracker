@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { calculateStreak, isCountedDay } from "@/lib/streak";
+import { calculateStreak } from "@/lib/streak";
 
 describe("streak", () => {
   it("DAILY normal", () => {
