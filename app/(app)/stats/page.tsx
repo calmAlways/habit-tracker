@@ -2,25 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { StatCard } from "@/components/StatCard";
+import type { CheckStats, QuantityStats } from "@/components/StatCard";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Habit } from "@prisma/client";
 
 const WINDOWS = ["7", "30", "90", "365", "all"];
-
-type CheckStats = {
-  streak: number;
-  lastOccurredAt: string | null;
-  count: number;
-};
-
-type QuantityStats = {
-  totalValue: number;
-  count: number;
-  unit: string;
-  trend: Array<{ logDate: string; value: number }>;
-};
 
 type StatsItem = {
   habit: Habit;

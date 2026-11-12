@@ -10,6 +10,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Habit, StreakMode } from "@prisma/client";
 import { Download, ArchiveRestore, Archive, ArrowUp, ArrowDown } from "lucide-react";
 
+type HabitUpdate = Partial<Habit> & { archived?: boolean };
+
 const WEEKDAYS = [
   { label: "周日", value: 0 },
   { label: "周一", value: 1 },
@@ -50,7 +52,7 @@ export default function SettingsPage() {
     refresh();
   }, []);
 
-  async function updateHabit(id: string, data: Partial<Habit>) {
+  async function updateHabit(id: string, data: HabitUpdate) {
     setLoading(true);
     await fetch(`/api/habits/${id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
     await refresh();

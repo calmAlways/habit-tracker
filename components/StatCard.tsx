@@ -3,13 +3,13 @@ import { Habit } from "@prisma/client";
 import { formatDateTimeShanghai } from "@/lib/date";
 import { TrendChart } from "./TrendChart";
 
-interface CheckStats {
+export interface CheckStats {
   streak: number;
   lastOccurredAt: string | null;
   count: number;
 }
 
-interface QuantityStats {
+export interface QuantityStats {
   totalValue: number;
   count: number;
   unit: string;

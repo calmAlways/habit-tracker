@@ -37,7 +37,7 @@ export async function createSession(): Promise<string> {
   };
   const payloadB64 = b64url(new TextEncoder().encode(JSON.stringify(payload)));
   const key = await getHmacKey(AUTH_SECRET());
-  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(payloadB64));
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(payloadB64).buffer as ArrayBuffer);
   return `${payloadB64}.${b64url(sig)}`;
 }
 
@@ -54,8 +54,8 @@ export async function verifySession(token: string): Promise<Payload | null> {
     const ok = await crypto.subtle.verify(
       "HMAC",
       key,
-      fromB64url(sigB64),
-      new TextEncoder().encode(payloadB64)
+      fromB64url(sigB64).buffer as ArrayBuffer,
+      new TextEncoder().encode(payloadB64).buffer as ArrayBuffer
     );
     return ok ? payload : null;
   } catch {
