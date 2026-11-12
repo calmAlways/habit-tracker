@@ -24,7 +24,7 @@ describe("streak", () => {
 
   it("WEEKENDS", () => {
     const logs = new Set(["2026-01-03", "2026-01-04", "2026-01-10"]);
-    expect(calculateStreak("WEEKENDS", [], logs, "2026-01-11")).toBe(2);
+    expect(calculateStreak("WEEKENDS", [], logs, "2026-01-11")).toBe(3);
   });
 
   it("CUSTOM non adjacent", () => {
