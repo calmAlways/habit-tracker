@@ -8,7 +8,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${DB_USER} -d habit"]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d habit"]
       interval: 10s
       timeout: 5s
       retries: 5
